@@ -1,21 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
+import { ClickCountContext } from "./CountContext"; // Assuming the context provides user credentials and authentication
 
 const LoginPage: React.FC = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [generalError, setGeneralError] = useState<string | null>(null);
-   const navigation = useNavigation();
+   const { userEmail, userPassword, setIsAuthenticated } = useContext(ClickCountContext); // Context for user credentials and authentication status
+
+   const switchToSignUp = () => {
+      router.push('/signup');
+   };
 
    const handleSignIn = () => {
       setGeneralError(null);
-      // Here you can add your own logic for authentication (e.g., API call)
-      if (email && password) {
 
-         // navigation.navigate('Dashboard');  
+      // Validate email and password
+      let formValid = true;
+      const newErrors: any = {};
+
+      // Email validation
+      if (!email) {
+         newErrors.email = "Email is required";
+         formValid = false;
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+         newErrors.email = "Email address is invalid";
+         formValid = false;
+      }
+
+      // Password validation
+      if (!password) {
+         newErrors.password = "Password is required";
+         formValid = false;
+      } else if (password.length < 6) {
+         newErrors.password = "Password must be at least 6 characters";
+         formValid = false;
+      }
+
+      if (!formValid) {
+         setGeneralError("Please enter valid email and password");
+         return;
+      }
+
+      // Authentication check
+      if (email === userEmail && password === userPassword) {
+         setIsAuthenticated(true);
+         router.push('/home');  // Navigate to home page if authentication is successful
       } else {
-         setGeneralError('Please enter valid email and password');
+         setGeneralError('Invalid credentials');
       }
    };
 
@@ -25,9 +58,9 @@ const LoginPage: React.FC = () => {
          style={styles.container}
       >
          <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
+            <Image source={require('../assets/images/logo.png')} style={styles.logo} />
             <Text style={styles.title}>Welcome Back!</Text>
-            <Text style={styles.subtitle}>Sign in to your account</Text>
+            <Text style={styles.subtitle}>Log in to your account</Text>
 
             <View style={styles.inputContainer}>
                <Text style={styles.label}>Email</Text>
@@ -63,12 +96,8 @@ const LoginPage: React.FC = () => {
                <View style={styles.dividerLine} />
             </View>
 
-            <TouchableOpacity
-            // onPress={() => navigation.navigate('SignUp')}  // Make sure SignUp is registered in the navigator
-            >
-               <Text style={styles.signupLink}>
-                  Don't have an account? Sign up
-               </Text>
+            <TouchableOpacity onPress={switchToSignUp}>
+               <Text style={styles.signupLink}>Don't you have an account? Sign Up</Text>
             </TouchableOpacity>
          </ScrollView>
       </KeyboardAvoidingView>
@@ -105,22 +134,26 @@ const styles = StyleSheet.create({
    },
    title: {
       fontSize: 24,
-      fontWeight: 'bold',
+      fontWeight: '900',
       color: '#333',
    },
    subtitle: {
-      fontSize: 18,
+      fontSize: 20,
       color: '#555',
+      fontWeight: '500',
       marginBottom: 20,
    },
    inputContainer: {
       width: '100%',
       marginBottom: 10,
+
+
    },
    label: {
-      fontSize: 16,
+      fontSize: 18,
       marginBottom: 5,
       color: '#333',
+      fontWeight: '600'
    },
    input: {
       width: '100%',
@@ -143,6 +176,7 @@ const styles = StyleSheet.create({
       height: 1,
       backgroundColor: '#ccc',
       flex: 1,
+
    },
    orText: {
       marginHorizontal: 10,
@@ -150,7 +184,7 @@ const styles = StyleSheet.create({
    },
    signupLink: {
       marginTop: 20,
-      color: '#ff7f00',
+      color: '#3b8d99',
    },
 });
 
