@@ -1,3 +1,5 @@
 ## Quikly
 
-Transportation related app
+Transportation related app (Assignment)
+
+Simple authentication and fetched data from a open API
