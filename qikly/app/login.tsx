@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, ScrollView, ImageBackground } from 'react-native';
 import { router } from 'expo-router';
 import { ClickCountContext } from "./CountContext"; // Assuming the context provides user credentials and authentication
 
@@ -53,60 +53,69 @@ const LoginPage: React.FC = () => {
    };
 
    return (
-      <KeyboardAvoidingView
-         behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Different behavior for iOS and Android
-         style={styles.container}
+      <ImageBackground
+         source={require('../assets/images/background.jpeg')} // Replace with your background image path
+         style={styles.backgroundImage}
       >
-         <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <Image source={require('../assets/images/logo.png')} style={styles.logo} />
-            <Text style={styles.title}>Welcome Back!</Text>
-            <Text style={styles.subtitle}>Log in to your account</Text>
+         <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Different behavior for iOS and Android
+            style={styles.container}
+         >
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+               <Image source={require('../assets/images/logo.png')} style={styles.logo} />
+               <Text style={styles.title}>Welcome Back!</Text>
+               <Text style={styles.subtitle}>Log in to your account</Text>
 
-            <View style={styles.inputContainer}>
-               <Text style={styles.label}>Email</Text>
-               <TextInput
-                  style={styles.input}
-                  placeholder="Enter your email"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-               />
-            </View>
+               <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Email</Text>
+                  <TextInput
+                     style={styles.input}
+                     placeholder="Enter your email"
+                     value={email}
+                     onChangeText={setEmail}
+                     keyboardType="email-address"
+                  />
+               </View>
 
-            <View style={styles.inputContainer}>
-               <Text style={styles.label}>Password</Text>
-               <TextInput
-                  style={styles.input}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-               />
-            </View>
+               <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Password</Text>
+                  <TextInput
+                     style={styles.input}
+                     placeholder="Enter your password"
+                     value={password}
+                     onChangeText={setPassword}
+                     secureTextEntry
+                  />
+               </View>
 
-            {generalError && <Text style={styles.error}>{generalError}</Text>}
+               {generalError && <Text style={styles.error}>{generalError}</Text>}
 
-            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-               <Text style={styles.buttonText}>Sign In</Text>
-            </TouchableOpacity>
+               <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                  <Text style={styles.buttonText}>Sign In</Text>
+               </TouchableOpacity>
 
-            <View style={styles.divider}>
-               <View style={styles.dividerLine} />
-               <Text style={styles.orText}>or</Text>
-               <View style={styles.dividerLine} />
-            </View>
+               <View style={styles.divider}>
+                  <View style={styles.dividerLine} />
+                  <Text style={styles.orText}>or</Text>
+                  <View style={styles.dividerLine} />
+               </View>
 
-            <TouchableOpacity onPress={switchToSignUp}>
-               <Text style={styles.signupLink}>Don't you have an account? Sign Up</Text>
-            </TouchableOpacity>
-         </ScrollView>
-      </KeyboardAvoidingView>
+               <TouchableOpacity onPress={switchToSignUp}>
+                  <Text style={styles.signupLink}>Don't you have an account? Sign Up</Text>
+               </TouchableOpacity>
+            </ScrollView>
+         </KeyboardAvoidingView>
+      </ImageBackground>
    );
 };
 
 const styles = StyleSheet.create({
    container: {
       flex: 1,
+   },
+   backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover', // Adjust the image to cover the screen
    },
    scrollContainer: {
       flexGrow: 1,
@@ -146,8 +155,6 @@ const styles = StyleSheet.create({
    inputContainer: {
       width: '100%',
       marginBottom: 10,
-
-
    },
    label: {
       fontSize: 18,
@@ -158,7 +165,7 @@ const styles = StyleSheet.create({
    input: {
       width: '100%',
       height: 40,
-      borderColor: '#ccc',
+      borderColor: 'black',
       borderWidth: 1,
       borderRadius: 8,
       paddingLeft: 10,
@@ -176,7 +183,6 @@ const styles = StyleSheet.create({
       height: 1,
       backgroundColor: '#ccc',
       flex: 1,
-
    },
    orText: {
       marginHorizontal: 10,

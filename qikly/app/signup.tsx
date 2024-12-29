@@ -1,5 +1,16 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+   View,
+   Text,
+   TextInput,
+   StyleSheet,
+   TouchableOpacity,
+   Image,
+   KeyboardAvoidingView,
+   Platform,
+   ScrollView,
+   ImageBackground,
+} from 'react-native';
 import { router } from 'expo-router';
 import { ClickCountContext } from './CountContext';
 
@@ -13,7 +24,7 @@ const SignupPage: React.FC = () => {
 
    const switchToLogIn = () => {
       router.push('/login');
-   }   
+   };
 
    const handleSignUp = () => {
       setGeneralError(null);
@@ -60,68 +71,77 @@ const SignupPage: React.FC = () => {
    };
 
    return (
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-         <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <Image source={require('../assets/images/logo.png')} style={styles.logo} />
-            <Text style={styles.title}>Welcome!</Text>
-            <Text style={styles.subtitle}>Sign Up to your account</Text>
+      <ImageBackground
+         source={require('../assets/images/background.jpeg')} // Add your background image here
+         style={styles.background}
+      >
+         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+               <Image source={require('../assets/images/logo.png')} style={styles.logo} />
+               <Text style={styles.title}>Welcome!</Text>
+               <Text style={styles.subtitle}>Sign Up to your account</Text>
 
-            <View style={styles.inputContainer}>
-               <Text style={styles.label}>Name</Text>
-               <TextInput
-                  style={styles.input}
-                  placeholder="Enter your name"
-                  value={name}
-                  onChangeText={setName}
-               />
-               {errors.name && <Text style={styles.error}>{errors.name}</Text>}
-            </View>
+               <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Name</Text>
+                  <TextInput
+                     style={styles.input}
+                     placeholder="Enter your name"
+                     value={name}
+                     onChangeText={setName}
+                  />
+                  {errors.name && <Text style={styles.error}>{errors.name}</Text>}
+               </View>
 
-            <View style={styles.inputContainer}>
-               <Text style={styles.label}>Email</Text>
-               <TextInput
-                  style={styles.input}
-                  placeholder="Enter your email"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-               />
-               {errors.email && <Text style={styles.error}>{errors.email}</Text>}
-            </View>
+               <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Email</Text>
+                  <TextInput
+                     style={styles.input}
+                     placeholder="Enter your email"
+                     value={email}
+                     onChangeText={setEmail}
+                     keyboardType="email-address"
+                  />
+                  {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+               </View>
 
-            <View style={styles.inputContainer}>
-               <Text style={styles.label}>Password</Text>
-               <TextInput
-                  style={styles.input}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-               />
-               {errors.password && <Text style={styles.error}>{errors.password}</Text>}
-            </View>
+               <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Password</Text>
+                  <TextInput
+                     style={styles.input}
+                     placeholder="Enter your password"
+                     value={password}
+                     onChangeText={setPassword}
+                     secureTextEntry
+                  />
+                  {errors.password && <Text style={styles.error}>{errors.password}</Text>}
+               </View>
 
-            {generalError && <Text style={styles.error}>{generalError}</Text>}
+               {generalError && <Text style={styles.error}>{generalError}</Text>}
 
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-               <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
+               <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                  <Text style={styles.buttonText}>Sign Up</Text>
+               </TouchableOpacity>
 
-            <View style={styles.divider}>
-               <View style={styles.dividerLine} />
-               <Text style={styles.orText}>or</Text>
-               <View style={styles.dividerLine} />
-            </View>
+               <View style={styles.divider}>
+                  <View style={styles.dividerLine} />
+                  <Text style={styles.orText}>or</Text>
+                  <View style={styles.dividerLine} />
+               </View>
 
-            <TouchableOpacity onPress={switchToLogIn}>
-               <Text style={styles.signupLink}>Already have an account? Log in</Text>
-            </TouchableOpacity>
-         </ScrollView>
-      </KeyboardAvoidingView>
+               <TouchableOpacity onPress={switchToLogIn}>
+                  <Text style={styles.signupLink}>Already have an account? Log in</Text>
+               </TouchableOpacity>
+            </ScrollView>
+         </KeyboardAvoidingView>
+      </ImageBackground>
    );
 };
 
 const styles = StyleSheet.create({
+   background: {
+      flex: 1,
+      resizeMode: 'cover', // Ensures the image covers the whole screen
+   },
    container: {
       flex: 1,
    },
@@ -152,11 +172,11 @@ const styles = StyleSheet.create({
    title: {
       fontSize: 24,
       fontWeight: '900',
-      color: '#333',
+
    },
    subtitle: {
       fontSize: 20,
-      color: '#555',
+
       fontWeight: '500',
       marginBottom: 20,
    },
@@ -167,16 +187,17 @@ const styles = StyleSheet.create({
    label: {
       fontSize: 18,
       marginBottom: 8,
-      color: '#333',
-      fontWeight: '600'
+
+      fontWeight: '600',
    },
    input: {
       width: '100%',
       height: 45,
-      borderColor: '#333',
+
       borderWidth: 1,
       borderRadius: 8,
       paddingLeft: 10,
+
    },
    error: {
       color: 'red',
@@ -194,7 +215,7 @@ const styles = StyleSheet.create({
    },
    orText: {
       marginHorizontal: 10,
-      color: '#555',
+
    },
    signupLink: {
       marginTop: 20,
