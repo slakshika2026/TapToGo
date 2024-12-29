@@ -13,7 +13,7 @@ const SignupPage: React.FC = () => {
 
    const switchToLogIn = () => {
       router.push('/login');
-   }
+   }   
 
    const handleSignUp = () => {
       setGeneralError(null);
