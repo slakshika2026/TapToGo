@@ -13,7 +13,8 @@ export default function HomeScreen() {
   };
 
   const handleHomeTest = () => {
-    router.push('/home');  // Navigate to the Home page when Home button is pressed
+    router.push('/home');  // Navigate to the Home page
+    //  when Home button is pressed
   };
 
   return (
@@ -22,13 +23,13 @@ export default function HomeScreen() {
 
       <View style={styles.header}>
         <Image
-          source={require('../assets/images/header3.jpeg')}
+          source={require('../assets/images/header.webp')}
           style={styles.headerImage}
         />
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.welcomeText}>Your Ride, Just a Tap Away</Text>
+        <Text style={styles.welcomeText}>Never Miss a Train Again!</Text>
         <Image
           source={require('../assets/images/logo.png')}
           style={styles.logo}
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   header: {
     width: '100%',
-    height: height * 0.4,
+    height: height * 0.35,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: '100%',
-    height: '100%',
+    height: '90%',
     resizeMode: 'cover',
   },
   content: {
