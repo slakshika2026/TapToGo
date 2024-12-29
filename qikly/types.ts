@@ -14,6 +14,7 @@ export interface Ride {
    image: string;
 }
 
+
 export interface RideContextType {
    bookingCount: number;
    incrementBookings: () => void;
