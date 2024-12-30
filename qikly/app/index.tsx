@@ -12,10 +12,6 @@ export default function HomeScreen() {
     router.push('/login');
   };
 
-  const handleHomeTest = () => {
-    router.push('/home');  // Navigate to the Home page
-    //  when Home button is pressed
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,9 +35,7 @@ export default function HomeScreen() {
             <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity style={styles.button} onPress={handleHomeTest}>
-            <Text style={styles.buttonText}>Home</Text>
-          </TouchableOpacity> */}
+
         </View>
 
       </View>
